@@ -90,3 +90,12 @@ p {
   transform: scale(0.95);
 }
 
+#Vol {
+  display: inline-block;
+  text-align: center;
+}
+
+#button-container {
+  margin-top: 40px;
+  text-align: center;
+}

@@ -234,39 +234,49 @@ function siirtyminenPaattyy(evnt) {
 
 // LOCK TARKISTUS //
 function tarkistaLukot(src) {
-    let lukitut = [];
+  let lukitut = [];
 
-    document.querySelectorAll('.rullatjanappulat button').forEach((ele) => {
-        if (ele.classList.contains('active')) {
-            lukitut.push(ele.id);
-        }
-    });
+  document.querySelectorAll('.rullatjanappulat button').forEach((ele) => {
+      if (ele.classList.contains('active')) {
+          lukitut.push(ele.id);
+      }
+  });
 
-    if (lukitut.length < 3 || lukitut.includes(src.id)) { // KOLME LUKITUSTA SALLITTU
-        src.classList.toggle('active');
-        src.innerText = (src.innerText == 'LOCK') ? 'LOCKED' : 'LOCK';
-    } else {
-        paivitaInfo('ONLY THREE LOCKS ALLOWED');
-        const trySound = document.getElementById('trySound'); // MAKE HIM WALK THE PLANK CAPTAIN - soita ääni TRY
-        trySound.play();
-    }
+  if (lukitut.length < 3 || lukitut.includes(src.id)) { // KOLME LUKITUSTA SALLITTU
+      src.classList.toggle('active');
+      src.innerText = (src.innerText == 'LOCK') ? 'LOCKED' : 'LOCK';
+  } else {
+      paivitaInfo('ONLY THREE LOCKS ALLOWED');
+      const trySound = document.getElementById('trySound'); // MAKE HIM WALK THE PLANK CAPTAIN - soita ääni TRY
+      trySound.play();
+  }
 
-    // Muuta LOCK-napin väri punaiseksi, kun LOCKED-tilassa
-    if (src.classList.contains('active')) {
-        src.style.backgroundColor = 'red';
-    
-    // lisätään ääniefekti LOCK-napin painallukselle
+  // Muuta LOCK-napin väri punaiseksi, kun LOCKED-tilassa
+  if (src.classList.contains('active')) {
+      src.style.backgroundColor = 'red';
+
+      // lisätään ääniefekti LOCK-napin painallukselle
       const lockSound = document.getElementById('lockSound');
       lockSound.play();
-    } else {
-        // Palauta alkuperäinen väri, kun nappi ei LOCKED-tilassa
-        src.style.backgroundColor = '';
 
-    // lisätään ääniefekti LOCK-napin vapautukselle
+      // Poista BET-napin käytöstä
+      const betButton = document.getElementById('panosButton');
+      betButton.disabled = true;
+
+  } else {
+      // Palauta alkuperäinen väri, kun nappi ei LOCKED-tilassa
+      src.style.backgroundColor = '';
+
+      // lisätään ääniefekti LOCK-napin vapautukselle
       const lockSound = document.getElementById('lockSound');
       lockSound.play();
-    }
+
+      // Salli BET-napin käyttö, kun ei LOCKED
+      const betButton = document.getElementById('panosButton');
+      betButton.disabled = false;
+  }
 }
+
 
 
 function paivitaInfo(teksti, tyyppi) {
