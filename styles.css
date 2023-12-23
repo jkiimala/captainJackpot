@@ -85,10 +85,7 @@ p {
   transform: scale(0.95);
 }
 
-#Vol {
-  position: relative;
-  
-}
+
 #Vol:hover {
   transform: scale(0.95);
 }
